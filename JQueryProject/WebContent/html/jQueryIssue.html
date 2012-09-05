@@ -1,0 +1,250 @@
+<html>
+<head>
+<script type="text/javascript" src="../script/jquery-1.7.2.js"></script>
+<!-- 
+<script>
+
+/*
+$(document).ready(function() {
+	var obj = $("#msg");
+    $("#broken input[name=button]").click(function() {
+        $("#msg").text("Should be submitting ...");       
+        $("form#broken").submit();
+    });
+    $("#working input[name=button]").click(function() {
+        $("form#working").submit();
+    });
+});
+*/
+
+/*
+var quickExpr = /^(?:[^#<]*(<[\w\W]+>)[^>]*$|#([\w\-]*)$)/,
+	slice = Array.slice;
+*/
+function demo(){
+	this.text = "Not set yet";
+}
+
+function demoOther(){
+	this.text = "Not set yet";
+}
+
+var demoO = new demo();
+
+demoOther.prototype.otherText = "This is other text";
+
+demo.prototype.setText = function(){
+	//alert(this.text+":"+arguments[0]);
+	this.text = arguments[0];
+}
+
+demo.prototype.showMe = function(){
+	alert(this.text);
+}
+
+/*var demoobj = new demo();
+
+alert(demoobj.text);
+demoobj.setText("Hello!");
+demoobj.showMe();
+*/
+
+function demofunc(){
+	
+}
+
+demofunc.prototype = demo.prototype;
+
+/*demofunc.prototype.setText = function(){
+	//alert(this.text+":"+arguments[0]);
+	this.text = "This is a prototype";
+};*/
+
+var demoobj1 = new demofunc();
+//demoobj1.text = "Set already";
+//demoobj1.prototype = function(){}
+
+demoobj1.showMe = function(){
+	alert(this.text);
+}
+
+demoobj1.setText("Hi");
+demoobj1.showMe();
+
+demoobj1.setText = function(){
+	//alert(this.text+":"+arguments[0]);
+	this.text = arguments[0];
+};
+
+demoobj1.setText("Hello");
+demoobj1.showMe();
+
+//alert(quickExpr.exec( "#msg" ));
+//alert(slice("abc,def,ghi",2));
+</script>
+-->
+
+<!-- <script type="text/javascript">
+function demo(){
+}
+
+demo.prototype.ping = function(){alert("ping");}
+demo.prototype.showMe = function(){alert("hello");}
+
+demo.prototype = {
+constructor : demo,
+init: function(){
+alert("init");
+}
+
+}
+
+var demoobj = new demo();
+demoobj.init();
+demoobj.ping();
+demoobj.showMe();
+</script> -->
+
+<script type="text/javascript">
+var demoFunc=(function(){
+
+	var demoFunc = function(){
+						return new demoFunc.fn.init();
+					},
+	push = Array.prototype.push;
+	
+	demoFunc.fn = demoFunc.prototype = {
+	constructor : demoFunc,
+	init : function(){
+	    //alert("init");
+	    return this;
+	},
+	length: 0,
+	push: push,
+	sort: [].sort,
+	splice: [].splice
+	};
+	
+	demoFunc.extend = demoFunc.fn.extend = function(){
+		var target = arguments[0] || {},
+		i=1,options,name,src,copy,
+		length=arguments.length,
+		deep = false;
+		
+		if(typeof target === "boolean"){
+			deep = target;
+			target = arguments[1] || {};
+			i = 2;
+		}
+		
+		if(typeof target !== "object" && !jQuery.isFunction(target)){
+			target = {};
+		}
+		
+		if(length === i){
+			target = this;
+			--i;
+		}
+		
+		for(;i<length;i++){
+			if((options = arguments[i]) != null){
+				for(name in options){
+					src = target[name];
+					copy = options[name];
+					
+					if(target === copy){
+						continue;
+					}
+					
+					if(copy !== undefined){
+						target[name] = copy;
+					}
+				}
+			}
+		}
+		return target;
+	}
+	
+	demoFunc.extend({
+		extendedFunc : function(){
+			alert("this is extended function");
+		}
+	});
+	
+	demoFunc.fn.extend({
+		extendedFunc : function(){
+			alert("this is prototype extended function");
+		}
+	});
+	
+	demoFunc.fn.init.prototype = demoFunc.fn;
+	
+	return demoFunc;
+	})(window);
+	
+	alert(jQuery.noConflict);
+	alert(jQuery.data);
+	var demoJQueryFunc = jQuery(document);
+	alert(demoJQueryFunc.data);
+	
+	alert(demoFunc.extendedFunc);
+	var demonFunction = demoFunc(document);
+	alert(demonFunction.extendedFunc);
+	
+	/* $.holdReady(true);
+	$(document).ready(function(){
+		var demoObj = jQuery("#working");
+		demoObj.hide();
+	});
+	
+	setTimeout(function(){
+		$.holdReady(false);
+	},5000); 
+	
+	var demoFunctions = function(){
+		alert(this.toString());
+	}
+	
+	demoFunctions.apply([1,2,"abc"]);
+	alert($.map([1,2,"abc"],function(){
+		return arguments[0]+" hello";
+	})); */
+	/* var demoObj = Array.prototype;
+	
+	var demoname1;
+	for(demoname1 in demoObj){
+		alert(demoname1);
+	}
+	 */
+	//alert(jQuery.boxModel+":"+jQuery.fn.blur);
+	
+/* 	alert(demoFunc.extendedFunc);
+	alert(Object.prototype.toString.call);
+ */	/*var obj = new demoFunc();
+	alert(obj.extend); */
+	/* $.extend({
+		sidFun: function(){
+			alert("this is sid's function");
+		}
+	}); */
+</script>
+
+</head>
+<body>
+
+
+<h1>Broken Form</h1>
+<form id="broken">
+<input name="submitted" value="good" type="hidden"/>
+<input type="submit" value="submit (works)" name="submit1"/>
+<input type="button" name="button" value="button (doesn't work)"/>
+</form>
+<h1>Working Form</h1>
+<form id="working">
+<input name="submitted" value="good" type="hidden"/>
+<input type="submit" value="submit (works)"/>
+<input type="button" name="button" value="button (works)"/>
+</form>
+<span id="msg"></span>
+</body>
+</html>

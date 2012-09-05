@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script type="text/javascript" src="script/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="script/ui/jquery.ui.core.js"></script>
+<script type="text/javascript" src="script/ui/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="script/ui/jquery.ui.mouse.js"></script>
+<script type="text/javascript" src="script/ui/jquery.ui.slider.js"></script>
+<link media="all" type="text/css" href="css/ui/jquery.ui.all.css" rel="stylesheet">
+<link media="all" type="text/css" href="css/ui/jquery.ui.core.css" rel="stylesheet">
+<link media="all" type="text/css" href="css/ui/jquery.ui.base.css" rel="stylesheet">
+<link media="all" type="text/css" href="css/ui/jquery.ui.slider.css" rel="stylesheet">
+<link media="all" type="text/css" href="css/custom.css" rel="stylesheet">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var possibleValues = [2,10,15,17,25];
+	$(document).ready(function(){
+		/* $("body input").click(function(){
+			$("#modal-element").modal();
+		});
+		$("#modal-element table").dataTable({"bJQueryUI": true,
+											"sDom": '<"top"i>t<"bottom"lp><"clear">',
+											"sScrollY": "250px",
+											"bScrollInfinite": true,
+										    "iScrollLoadGap": 50
+											});
+		$("#modal-element").css('display','none').modal(); */
+		/* $("#slider").slider({
+			min : 1,
+			max : possibleValues.length,
+			range : "min",
+			value : 1,
+			slide :	function(){
+				console.info('slide');
+				$("#currValue").html(possibleValues[ui.value-1]);
+			} 
+		}); */
+	
+		
+		
+		$("#slider").slider({
+					min : 1,
+					max : possibleValues.length,
+					orientation : "vertical",
+					value : findLocation(possibleValues, $("#currValue").html()),
+					slide :	function(event,ui){
+						$("#currValue").html(possibleValues[ui.value-1]);
+					}
+				});
+		$("#slider2").slider({orientation : "vertical",slide :	function(event,ui){
+			$("#currValue").html(ui.value);
+		}});
+	});
+	
+	
+	function findLocation(array,num){
+		for(var i=0;i<array.length;i++){
+			if(array[i]==num) return i+1;
+		}
+		return 0;
+	}
+	
+</script>
+</head>
+<body>
+	Value : <a id="currValue">17</a>
+	<div align="center" id="slider">
+	</div>
+	
+	<div align="center" id="slider2">
+	</div>
+	
+	
+	<!-- 
+	
+	<label style="left: 25%;position: absolute;z-index: 3">10</label>
+		<label style="left: 50%;position: absolute;z-index: 3">15</label>
+		<label style="left: 75%;position: absolute;z-index: 3">17</label>
+	
+	 -->
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Ajax Example</title>
+<script type="text/javascript" src="script/jquery-1.7.2.js"></script>
+<script type="text/javascript">
+
+	var catalogPartState = {"RL":{"CD":{"AUSA":true,"BSG":true,"IPD":true,"AGL-IL":true},"AU":{"AUSA":true,"WTD":true,"OND":true,"AGL-IL":true,"ANVGRP":true},"MM":{"AUSA":true,"SRDE10":true,"OND":true,"SSD":true,"AGL-IL":true,"ANVGRP":true},"OB":{"AUSA":true,"AGL-IL":true,"ANVGRP":true}}};
+	
+	
+	// inputRestriction should be of format {"catalogPartState":["RL"],"aclPartStatus":["CD","AU"],"acl":[]}
+	// output will be of same format.
+	function retrieveOutput(inputRestriction){
+		var output = {"catalogPartState":{},"aclPartStatus":{},"acl":{}};
+		var catalogpartStateRestrictions = inputRestriction.catalogPartState;
+		var aclPartStatusRestrictions = inputRestriction.aclPartStatus;
+		var aclRestrictions = inputRestriction.acl;
+		
+		for(catalogPart in catalogPartState){
+			var catalogPartPresent = isPresent(catalogPart,catalogpartStateRestrictions);
+			if(catalogpartStateRestrictions.length==0 || catalogPartPresent){
+				for(aclPart in catalogPartState[catalogPart]){
+					var aclPartPresent = isPresent(aclPart,aclPartStatusRestrictions);
+					if(aclPartStatusRestrictions.length==0 || aclPartPresent){
+						for(aclElement in catalogPartState[catalogPart][aclPart]){
+							var aclElementPresent = isPresent(aclElement,aclRestrictions);
+							if(aclRestrictions.length==0 || aclElementPresent){
+								if(!catalogPartPresent) {
+									output.catalogPartState[catalogPart]=true;
+								}
+								if(!aclPartPresent) {
+									output.aclPartStatus[aclPart]=true;
+								}
+								if(!aclElementPresent) {
+									output.acl[aclElement]=true;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		var catalogPartStates = [];
+		var aclPartStatuses = [];
+		var acls = [];
+		
+		for(catalog in output.catalogPartState){
+			catalogPartStates.push(catalog);
+		}
+		for(aclPartStat in output.aclPartStatus){
+			aclPartStatuses.push(aclPartStat);
+		}
+		for(acl in output.acl){
+			acls.push(acl);
+		}
+		output.catalogPartState=catalogPartStates;
+		output.aclPartStatus=aclPartStatuses;
+		output.acl=acls;
+		
+
+		if(catalogpartStateRestrictions.length!=0){
+			output.catalogPartState = null;
+		}
+		if(aclPartStatusRestrictions.length!=0){
+			output.aclPartStatus = null;
+		}
+		if(aclRestrictions.length!=0){
+			output.acl = null;
+		}
+		
+		
+		return output;
+	}
+	
+	function isPresent(ele,store){
+		for(var i=0;i<store.length;i++){
+			if(ele == store[i]){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+	$(document).ready(function(){
+		//alert(JSON.stringify(retrieveOutput({"catalogPartState":[],"aclPartStatus":["CD"],"acl":[]})));
+		var globalObject = retrieveOutput({"catalogPartState":[],"aclPartStatus":[],"acl":[]});
+		for(id in globalObject){
+			var choices = globalObject[id];
+			for(var i=0;i<choices.length;i++){
+				$("#"+id).append('<input type="checkbox" value="'+choices[i]+'" />');
+				$("#"+id).append('<label>'+choices[i]+'</label>');
+			}
+		}
+		
+		$("div").on("change","input",function(event){
+			var inputRestrictions = {};
+			inputRestrictions.catalogPartState = $.map($("#catalogPartState input").filter(":checked"),function(component,index){return $(component).val();});
+			inputRestrictions.aclPartStatus = $.map($("#aclPartStatus input").filter(":checked"),function(component,index){return $(component).val();});
+			inputRestrictions.acl = $.map($("#acl input").filter(":checked"),function(component,index){return $(component).val();});
+			console.info("Making request with : "+JSON.stringify(inputRestrictions));
+			var output = retrieveOutput(inputRestrictions);
+			console.info("Getting response : "+JSON.stringify(output));
+			for(id in output){
+				var choices = output[id];
+				if(choices!=null){
+					$("#"+id).html("");
+					for(var i=0;i<choices.length;i++){
+						$("#"+id).append('<input type="checkbox" value="'+choices[i]+'" />');
+						$("#"+id).append('<label>'+choices[i]+'</label>');
+					}
+				}
+			}
+			
+		});
+		
+	});
+	
+
+</script>
+
+</head>
+<body>
+<label>Catalog Part State</label>
+<div id="catalogPartState">
+	
+</div>
+<label>ACL Part Status</label>
+<div id="aclPartStatus">
+	
+</div>
+<label>ACL</label>
+<div id="acl">
+	
+</div>
+</body>
+</html>

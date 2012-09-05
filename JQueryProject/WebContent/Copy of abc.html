@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Ajax Example</title>
+<script type="text/javascript" src="script/jquery-1.7.2.js"/>
+<script type="text/javascript">
+
+	var alphabetStore = {"a":{"10":{"@":true,"*":true},"11":{"#":true}},
+						"b":{"10":{"@":true},"11":{"@":true}},
+						"c":{"12":{"@":true}},
+						"d":{"10":{"*":true}}};
+	
+	function retrieveOutput(inputRestriction){
+		var output = {"alphabet":[],"digit":[],"symbol":[]};
+		var alphabetRestrictions = inputRestriction.alphabet;
+		var digitRestrictions = inputRestriction.digit;
+		var symbolRestrictions = inputRestriction.symbol;
+		
+		for(alphabet in alphabetStore){
+			var alphaPresent = isPresent(alpahbet,alphabetRestrictions);
+			if(alphabetRestrictions.length==0 || alphaPresent){
+				for(digit in alphabetStore[alphabet]){
+					var digitPresent = isPresent(digit,digitRestrictions);
+					if(digitRestrictions.length==0 || digitPresent){
+						for(symbol in symbolRestrictions){
+							var symbolPresent = isPresent(symbol,symbolRestrictions);
+							if(symbolRestrictions.length==0 || symbolPresent){
+								if(!alphaPresent) output.alphabet.push(alphabet);
+								if(!digitPresent) output.digit.push(digit);
+								if(!symbolPresent) output.symbol.push(symbol);
+							}
+						}
+					}
+				}
+			}
+		}
+		return output;
+	}
+	
+	function isPresent(ele,store){
+		for(int i=0;i<store.length;i++){
+			if(ele == store[i]){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+	$(document).ready(function(){
+		alert(retrieveOutput({"alphabet":["a"],"digit":[],"symbol":[]}).toString());	
+	});
+	
+
+</script>
+
+</head>
+<body>
+Hello
+</body>
+</html>

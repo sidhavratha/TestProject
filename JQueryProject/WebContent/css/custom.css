@@ -1,0 +1,15 @@
+.ui-slider-vertical { 
+	width: 0.1em; 
+	height: 100px; 
+}
+.ui-slider-vertical .ui-slider-handle { 
+	left: -0.1em;
+	margin-left: 0; 
+	margin-bottom: -.1em; 
+	height: 0.2em; 
+	width: 1em;
+	border-top-right-radius: 20px;
+}
+.ui-slider-vertical .ui-slider-range { left: 0; width: 100%; }
+.ui-slider-vertical .ui-slider-range-min { bottom: 0; }
+.ui-slider-vertical .ui-slider-range-max { top: 0; }
