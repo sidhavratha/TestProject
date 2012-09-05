@@ -28,7 +28,8 @@ public class TwosComplement {
 				}
 			}
 			System.out.println(total);
-		}*/
+		}
+		*/
 		int A = -1548535525;
 		int B = 662630637;
 		long total=0;
