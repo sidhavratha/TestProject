@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html"%>
 
 <%
-
  	String country = request.getParameter("country");
     String flavour = request.getParameter("flavour");
     String apg = request.getParameter("apg");
