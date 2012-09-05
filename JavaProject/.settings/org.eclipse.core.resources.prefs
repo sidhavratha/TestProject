@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+encoding//src/DefaultNamespace/IntAdder.java=UTF-8
+encoding//src/DefaultNamespace/IntAdderService.java=UTF-8
+encoding//src/DefaultNamespace/IntAdderServiceLocator.java=UTF-8
+encoding//src/DefaultNamespace/IntAdderSoapBindingStub.java=UTF-8
+encoding//src/com/basic/IntegerAdder.java=UTF-8
+encoding//src/com/basic/IntegerAdderService.java=UTF-8
+encoding//src/com/basic/IntegerAdderServiceLocator.java=UTF-8
+encoding//src/com/basic/IntegerAdderSoapBindingStub.java=UTF-8
