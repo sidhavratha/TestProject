@@ -36,22 +36,23 @@ public class TwosComplement {
 	public static long numberOfOnesFromZero(int number){
 		
 		if(number<0){
-			return (32L*(-number))-(numberOfOnesFromZero(-(number+1)));
+			long returnResult = (32L*((long)-number))-(numberOfOnesFromZero(-(number+1)));
+			System.out.println("Returning negative value as : "+ returnResult);
+			return returnResult;
 		}
-		
 		long startTime = System.currentTimeMillis();
-		int count = number+1;
+		long count = number+1L;
 		long total = 0;
 		int location = 1;
-		long group = (int)Math.pow(2, location);
-		long groupCount = (int)(count/group);
+		long group = (long)Math.pow(2, location);
+		long groupCount = (long)(count/group);
 		
 		while(groupCount>0){
 			int curr = (int)(groupCount*(group/2));
 			int left = (int)((count-(groupCount*(group)))-(group/2));
 			//System.out.println("At "+location+" left "+left);
 			total+=(curr+(left>0?left:0));
-			//System.out.println("At location "+location+" found "+curr);
+			System.out.println("At location "+location+" found "+curr);
 			group=(long)Math.pow(2,++location);
 			groupCount=(long)(count/group);
 		}
@@ -61,8 +62,8 @@ public class TwosComplement {
 		
 		//System.out.println(endTime-startTime);
 		
-		//System.out.println("Left found "+left+" total "+total);
-		//System.out.println("Final total "+(total+left));
+		System.out.println("Left found "+left+" total "+total);
+		System.out.println("Final total "+(total+left));
 		return (total+left);
 	
 	}
