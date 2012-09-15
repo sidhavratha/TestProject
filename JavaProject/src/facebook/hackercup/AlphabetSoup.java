@@ -73,7 +73,7 @@ public class AlphabetSoup {
 		FileWriter fw = null;
 		try {
 			//br = new BufferedReader(new FileReader(new File("alphabetsoup.txt")));
-			br = new BufferedReader(new FileReader(new File("alphabet_soup.txt")));
+			br = new BufferedReader(new FileReader(new File("alphabetsoup.txt")));
 			fw = new FileWriter(new File("alphabetsoup-output.txt"));
 			if(br.ready()){
 				int testCaseCount = Integer.parseInt(br.readLine());
