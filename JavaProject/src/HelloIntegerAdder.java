@@ -20,8 +20,11 @@ public class HelloIntegerAdder {
 		/*IntegerAdder adder = new IntegerAdderProxy();
 		System.out.println(adder.add(2, 3));*/
 		
-		IntAdder adder = new IntAdderProxy();
-		System.out.println(adder.add(2, 3));
+		/*IntAdder adder = new IntAdderProxy();
+		System.out.println(adder.add(2, 3));*/
+		
+		System.out.println((int)(-5.0/0));
+		System.out.println((-5.0/0)<5);
 		
 	}
 }
