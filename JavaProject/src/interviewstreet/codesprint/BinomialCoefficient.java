@@ -17,6 +17,8 @@ public class BinomialCoefficient {
 			String pCount = "";
 			int diff = 0;
 			
+			System.out.println(System.getProperty("user.dir"));
+			
 			int counter = 0;
 			int currentBiggerNumber = 0;
 			while(counter!=largeN.length()){
