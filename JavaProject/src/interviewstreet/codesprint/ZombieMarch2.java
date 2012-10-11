@@ -9,13 +9,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 import java.util.StringTokenizer;
 
-public class ZombieMarch {
+public class ZombieMarch2 {
 
 	public static void main(String[] args) throws Exception{
 		
-		long startTime = System.currentTimeMillis();
+		/*long startTime = System.currentTimeMillis();
 		for(int timeStep=0;timeStep<10000000;timeStep++){
 			double[] zombieDetailClone = new double[1000000];
 			for(int stationIndex=0;stationIndex<1000000;stationIndex++){
@@ -34,8 +35,8 @@ public class ZombieMarch {
 		System.exit(0);
 		
 		
-		
-		BufferedReader br = new BufferedReader(new FileReader(new File("input_zombie_00.txt")));
+		*/
+		BufferedReader br = new BufferedReader(new FileReader(new File("input_zombie.txt")));
 		//BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		Integer testCount = Integer.parseInt(br.readLine());
 		for(int testIndex=0;testIndex<testCount;testIndex++){
@@ -63,22 +64,37 @@ public class ZombieMarch {
 			for(int stationIndex=0;stationIndex<stationCount;stationIndex++){
 				zombieDetail[stationIndex] = Integer.parseInt(br.readLine());
 			}
-			double[] zombieDetailClone = null;
-			for(int timeStep=0;timeStep<timeStepCount;timeStep++){
-				zombieDetailClone = new double[stationCount];
-				for(int stationIndex=0;stationIndex<stationCount;stationIndex++){
-					double zombieCount = 0;
-					for(int nghStation : stations.get(stationIndex)){
-						zombieCount+=zombieDetail[nghStation]/stations.get(nghStation).size();
+			
+			Stack<ZombieMarch2.ZombieNode> stack1= new Stack<ZombieMarch2.ZombieNode>();
+			Stack<ZombieMarch2.ZombieNode> stack2= new Stack<ZombieMarch2.ZombieNode>();
+			Stack<ZombieMarch2.ZombieNode> newStack = null;
+			Stack<ZombieMarch2.ZombieNode> oldStack = null;
+			ZombieNode node = null;
+			boolean first=false;
+			
+			stack1.push(new ZombieNode(1, 0));
+			
+			for(int timeStep = 0;timeStep<timeStepCount;timeStep++){
+				newStack=first?stack1:stack2;
+				oldStack=first?stack2:stack1;
+				first=!first;
+				while(!oldStack.isEmpty()){
+					node=oldStack.pop();
+					for(Integer nghStationIndex : stations.get(node.stationIndex)){
+						newStack.push(new ZombieNode(node.value*stations.get(node.stationIndex).size(),nghStationIndex));
 					}
-					zombieDetailClone[stationIndex]+=zombieCount;
-					
 				}
-				zombieDetail=zombieDetailClone;
-				
+				System.out.println("Current time step : "+timeStep);
 			}
-			printStationDetails(stations);
-			printZombieDetails(zombieDetail);
+			
+			oldStack=first?stack1:stack2;
+			double zombieCount = 0;
+			while(!oldStack.isEmpty()){
+				node=oldStack.pop();
+				zombieCount+=(zombieDetail[node.stationIndex]*(1/node.value));
+			}
+			System.out.println("At position 0 zombie count is  : "+zombieCount);
+			
 		}
 		
 
@@ -112,5 +128,13 @@ public class ZombieMarch {
 		System.out.println();
 	}
 	
+	static class ZombieNode{
+		int value;
+		int stationIndex;
+		public ZombieNode(int value,int stationIndex){
+			this.value=value;
+			this.stationIndex=stationIndex;
+		}
+	}
 
 }
