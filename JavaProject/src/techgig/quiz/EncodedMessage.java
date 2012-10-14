@@ -6,7 +6,7 @@ public class EncodedMessage {
 	public static void main(String[] args) {
 		
 		System.out.println(encode("{a s dffg}",3));
-		System.out.println(decode("{d v giij}",3));
+		System.out.println(decode("pb qdph lv vkdqwdqx abc",3));
 		//System.out.println((int)'a'+":"+(int)'z'+":"+(int)'A'+":"+(int)'Z');
 
 	}
@@ -40,7 +40,7 @@ public class EncodedMessage {
 	
 	public static String decode(String message,int key){
 		String decodedMessage="";
-		message=message.substring(1,message.length()-1);
+		//message=message.substring(1,message.length()-1);
 		for(int i=0;i<message.length();i++){
 			
 			char currChar = message.charAt(i);
@@ -54,7 +54,7 @@ public class EncodedMessage {
 				decodedMessage+=currChar;
 			}
 		}
-		return "{"+decodedMessage+"}";
+		return decodedMessage;
 	}
 
 }

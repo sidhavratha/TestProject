@@ -121,6 +121,32 @@
 		
 	});
 	
+	
+	
+
+	function createCORSRequest(method, url){
+	    var xhr = new XMLHttpRequest();
+	    if ("withCredentials" in xhr){
+	        xhr.open(method, url, true);
+	    } else if (typeof XDomainRequest != "undefined"){
+	        xhr = new XDomainRequest();
+	        xhr.open(method, url);
+	    } else {
+	        xhr = null;
+	    }
+	    return xhr;
+	}
+	alert("sending1"); 
+	var request = createCORSRequest("get", "https://www.interviewstreet.com/");
+	if (request){
+	    request.onload = function(){
+	        alert(request.responseText);
+	    };
+	    alert("sending2");
+	    request.send();
+	}
+
+	
 
 </script>
 
@@ -138,5 +164,16 @@
 <div id="acl">
 	
 </div>
+
+
+
+<div style="display: table;">
+	<div style="display:table-row-group;"><span style="display: table-cell;"><label>User Name : </label></span><span style="display: table-cell;"><input type="text"/></span></div>
+	<div style="display:table-row-group;"><span style="display: table-cell;"><label>Password : </label></span><span style="display: table-cell;"><input type="text"/></span></div>
+	<div style="display:table-row-group;"><span style="display: table-cell;"><label>First Name : </label></span><span style="display: table-cell;"><input type="text"/></span></div>
+</div>
+
+
+
 </body>
 </html>
