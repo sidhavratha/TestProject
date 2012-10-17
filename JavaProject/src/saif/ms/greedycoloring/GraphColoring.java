@@ -52,6 +52,20 @@ public class GraphColoring {
 		public static Graph addEdge(Graph g, Vertex v1, Vertex v2){
 			if(g==null) g=createGraph();
 			Set<Vertex> localBag = null;
+			if(g.bag.containsKey(v1)){
+				for(Vertex v : g.bag.keySet()){
+					if(v.equals(v1)){
+						v1=v;
+					}
+				}
+			}
+			if(g.bag.containsKey(v2)){
+				for(Vertex v : g.bag.keySet()){
+					if(v.equals(v2)){
+						v2=v;
+					}
+				}
+			}
 			if((localBag=g.bag.get(v1))==null){
 				localBag = new HashSet<Vertex>();
 			}
@@ -158,7 +172,7 @@ public class GraphColoring {
 		}
 		
 		public int hashCode(){
-			return (id.charAt(0)+(20*id.charAt(0)))%7;
+			return (20*id.charAt(0))%7;
 		}
 	}
 	
