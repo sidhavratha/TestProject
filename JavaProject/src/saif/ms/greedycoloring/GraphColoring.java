@@ -125,7 +125,10 @@ public class GraphColoring {
 				System.out.print("("+vertex.id+","+vertex.color.name+"):");
 				boolean first=true;
 				for(Vertex childVertex : graph.getNeighbours(graph, vertex)){
-					if(!first)System.out.print(",");
+					if(!first){
+						System.out.print(",");
+					}else first=false;
+					
 					System.out.print(childVertex.id);
 				}
 				System.out.println();
@@ -152,6 +155,10 @@ public class GraphColoring {
 				return true;
 			}
 			return false;
+		}
+		
+		public int hashCode(){
+			return (id.charAt(0)+(20*id.charAt(0)))%7;
 		}
 	}
 	
