@@ -28,7 +28,7 @@ public class MeetingPoint {
 		
 		House avgHouse = new House((long)xAvg, (long)yAvg);
 		for(int houseIndex=0;houseIndex<houseCount;houseIndex++){
-			double distance = avgHouse.distanceFrom(houses[houseIndex]);
+			double distance = avgHouse.actualDistanceFrom(houses[houseIndex]);
 			if(distance<minDis){
 				minDis=distance;
 				index=houseIndex;
@@ -63,6 +63,12 @@ public class MeetingPoint {
 			double yDis = this.yLoc-house.yLoc;
 			if(yDis<0) yDis=-yDis;
 			return xDis>yDis?xDis:yDis;
+		}
+		
+		public double actualDistanceFrom(House house){
+			double xDis2 = (this.xLoc-house.xLoc)*(this.xLoc-house.xLoc);
+			double yDis2 = (this.yLoc-house.yLoc)*(this.yLoc-house.yLoc);
+			return Math.sqrt(xDis2+yDis2);
 		}
 	}
 	
