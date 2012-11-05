@@ -13,10 +13,16 @@ public class UserMainCode
     
     
     public static void main(String args[]){
-    	Minimum_TollTax("{A,B,C,D,E,F}", 7,"{(A,B,4),(B,C,2),(C,D,3),(B,D,6),(B,E,9),(D,F,5),(E,F,4)}","{A,F}");
-    	System.out.println(output1);
+    	//Minimum_TollTax("{A,B,C,D,E,F}", 7,"{(A,B,4),(B,C,2),(C,D,3),(B,D,6),(B,E,9),(D,F,5),(E,F,4)}","{A,F}");
+    	//System.out.println(output1);
     	/*Minimum_TollTax("{V1,V2,V3,V4,V5}", 10,"{(V1,V2,1),(V1,V5,5),(V1,V4,1),(V2,V1,9),(V2,V4,2),(V2,V3,3),(V3,V4,4),(V4,V3,2),(V4,V5,3),(V5,V1,3),}","{V5,V3}");
     	System.out.println(output1);*/
+    	String val = "AU\" 30U\"";
+    	System.out.println(val);
+    	System.out.println(val.indexOf("\""));
+    	System.out.println(val.replace("\"", "\\\""));
+    	System.out.println(val.replaceAll("A", "B"));
+    	
     }
     
     

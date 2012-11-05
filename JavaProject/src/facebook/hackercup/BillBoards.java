@@ -15,7 +15,7 @@ public class BillBoards {
 	public static void main(String[] args) {
 		int testCaseCount = 0;
 		try{
-			BufferedReader br = new BufferedReader(new FileReader(new File("billboards.txt")));
+			BufferedReader br = new BufferedReader(new FileReader(new File("Billboard-input.txt")));
 			
 			FileWriter fw = new FileWriter(new File("billboards-output.txt"));
 			if(br.ready()){

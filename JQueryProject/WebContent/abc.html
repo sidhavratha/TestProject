@@ -4,6 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Ajax Example</title>
 <script type="text/javascript" src="script/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="script/fader-0.0.1.js"></script>
 <script type="text/javascript">
 
 	var catalogPartState = {"RL":{"CD":{"AUSA":true,"BSG":true,"IPD":true,"AGL-IL":true},"AU":{"AUSA":true,"WTD":true,"OND":true,"AGL-IL":true,"ANVGRP":true},"MM":{"AUSA":true,"SRDE10":true,"OND":true,"SSD":true,"AGL-IL":true,"ANVGRP":true},"OB":{"AUSA":true,"AGL-IL":true,"ANVGRP":true}}};
@@ -116,7 +117,35 @@
 			
 		});
 		
+		$("label").fadeOnClick();
+		
 	});
+	
+	
+	
+
+	function createCORSRequest(method, url){
+	    var xhr = new XMLHttpRequest();
+	    if ("withCredentials" in xhr){
+	        xhr.open(method, url, true);
+	    } else if (typeof XDomainRequest != "undefined"){
+	        xhr = new XDomainRequest();
+	        xhr.open(method, url);
+	    } else {
+	        xhr = null;
+	    }
+	    return xhr;
+	}
+	alert("sending1"); 
+	var request = createCORSRequest("get", "https://www.interviewstreet.com/");
+	if (request){
+	    request.onload = function(){
+	        alert(request.responseText);
+	    };
+	    alert("sending2");
+	    request.send();
+	}
+
 	
 
 </script>
@@ -135,5 +164,16 @@
 <div id="acl">
 	
 </div>
+
+
+
+<div style="display: table;">
+	<div style="display:table-row-group;"><span style="display: table-cell;"><label>User Name : </label></span><span style="display: table-cell;"><input type="text"/></span></div>
+	<div style="display:table-row-group;"><span style="display: table-cell;"><label>Password : </label></span><span style="display: table-cell;"><input type="text"/></span></div>
+	<div style="display:table-row-group;"><span style="display: table-cell;"><label>First Name : </label></span><span style="display: table-cell;"><input type="text"/></span></div>
+</div>
+
+
+
 </body>
 </html>
